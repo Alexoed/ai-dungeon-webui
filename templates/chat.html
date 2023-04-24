@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if not current_user.is_authenticated %}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  Внимание! Вы не зарегистрированы на сайте, история вашего прохождения не будет сохранена.
+</div>
+{% endif %}
+{% for element in data %}
+{% if element == "newpoint" %}
+<hr>
+{% elif element[0] != ">" %}
+<div class="card text-bg-light mb-3">
+    <div class="card-body">
+        <p class="card-text">{{ element|safe }}</p>
+    </div>
+</div>
+{% else %}
+<div class="card text-bg-dark mb-3">
+    <div class="card-body">
+        <p class="card-text">{{ element|safe }}</p>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+<form class="input_form" method="post" id="scrollspyHeading1">
+    <div class="input-group mb-3">
+        <button class="btn btn btn-secondary" type="submit" id="button-addon1">Отправить</button>
+        <input type="text" class="form-control" placeholder="введите действие" aria-label="Example text with button addon" aria-describedby="button-addon1" id="text" name="text" autocomplete="off">
+    </div>
+</form>
+<footer>
+    <hr>
+    <p class="note">Введите своё действие и нажмите кнопку отправить, чтобы продолжить игру.</p>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Что делать
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <ul>
+                    <li>Если игра не реагирует, то нужно запустить генератор и подождать пару минут! (см. <i>Специальные команды</i>)</li>
+                    <li>Введите действие, начинающиеся с глагола, например: <b>пойти в таверну</b> или <b>напасть на орка</b></li>
+                    <li>Чтобы заговорить, введите: <b>скажи "(то, что ты хочешь сказать)"</b> или просто <b>"(то, что ты хочешь сказать)"</b>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Специальные команды
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <ul>
+                    <li><b>/launch</b> - запускает генератор (Важно! Запуск более чем одного генератора приведёт к нарушениям в работе!)</li>
+                    <li><b>/save</b> - сохраняет текущую игру*</li>
+                    <li><b>/revert</b> - отменяет последнее действие</li>
+                    <li><i>пробел</i> - продолжает историю без совершения действия</li>
+                    <li><b>/retry</b> - генерирует по новой последнее действие</li>
+                    <li><b>/quit</b> - закрывает генератор (но не интерфейс) и сохраняет текущую игру (для подтверждения требуется ввести 'y'
+                        следующей командой, затем имя для сохранения)*</li>
+                    </ul>
+                    <p>Примечание:</p>
+                    <ul>
+                    <li>*после отправки команды нужно также ввести имя для сохранения!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

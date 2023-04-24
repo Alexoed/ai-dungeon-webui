@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card text-bg-light mb-3" style="padding: 1rem; margin-left: 20%; margin-right: 20%">
+    <form class="login_form" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="text">Приложите текстовый файл</label>
+            <input type="file" class="form-control-file" id="text" name="file" accept=".txt">
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+    <p>Содержимое файла должно быть на одной стоке и написано на английском языке!<br>
+    В противном случае игра может работать некорректно.</p>
+    <p>Загруженные сценарии доступны в опции "выбрать готовый сценарий"
+        в папке "Custom".</p>
+</div>
+{% endblock %}
